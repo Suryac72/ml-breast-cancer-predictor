@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>Breast Cancer Predictor</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="icon" href="favicon.ico" >
+ <!-- Bootstrap CSS -->
+
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+ <!-- Bootstrap JavaScript -->
+
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+ <!-- Google Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+ <link
+   href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+   rel="stylesheet">
+
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Breast Cancer Predictor</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact us</a>
+        </li>
+    </div>
+  </nav>
+  <div class="card">
+    <div class="card-header">
+      Breast Cancer Predictor
+    </div>
+    <form action="{{ url_for('predict')}}"method="post">
+    <div class="card-body">
+        <div class="form-group">
+          <label>Mean Radius</label>
+          <input type="text" class="form-control" name = "Mean Radius" id="exampleInputEmail1" aria-describedby="emailHelp" required="required"/>
+          <small id="emailHelp" class="form-text text-muted">Enter your breast-cancer mean radius</small>
+        </div>
+        <div class="form-group">
+          <label>Mean Texture</label>
+          <input type="text" class="form-control" name = "Mean Texture" id="exampleInputPassword1" required="required"/>
+          <small id="emailHelp" class="form-text text-muted">Enter your breast-cancer mean texture</small>
+        </div>
+        <div class="form-group">
+          <label>Mean Parameter</label>
+          <input type="text" class="form-control"  name = "Mean Perimeter" id="exampleInputPassword1"  required="required"/>
+          <small id="emailHelp" class="form-text text-muted">Enter your breast-cancer mean parameter</small>
+        </div>
+        <div class="form-group">
+          <label >Mean Area</label>
+          <input type="text" class="form-control"  name = "Mean Area" id="exampleInputPassword1"  required="required"/>
+          <small id="emailHelp" class="form-text text-muted">Enter your breast-cancer mean area</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Mean Smoothness</label>
+          <input type="text" class="form-control"  name = "Mean Smoothness" id="exampleInputPassword1"  required="required"/>
+          <small id="emailHelp" class="form-text text-muted">Enter your breast-cancer mean smoothness</small>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Predict</button>
+      </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
+  <style>
+    /* NAVBAR */
+
+        .navbar{
+          border: 1px solid;
+          padding: 10px;
+          box-shadow: 5px 10px 8px #888888;
+        }
+        .nav-item{
+          padding: 0 18px;
+          margin: auto;
+          font-family: Montserrat,sans-serif;
+        }
+        .navbar-brand{
+          font-family: Ubuntu,sans-serif;
+          font-weight: 400;
+          margin-left: 1rem;
+        }
+
+        /* WEB APP AREA */
+
+        .card{
+          border: 1px solid;
+          padding: 10px;
+          box-shadow: 5px 10px #888888;
+          width: 60%;
+          height: 50%;
+          margin-left: 20%;
+          margin-top: 5%;
+          margin-bottom: 5%;
+          background-color: #fff;
+        }
+        .card-header{
+          background-color: #FF5722;
+          font-size: 2rem;
+          font-family: Montserrat;
+          font-weight: 900;
+          color:#fff;
+          line-height: 1.2;
+        }
+        .btn{
+          background-color:#CF1B1B;
+        }
+        label{
+          font-family: Montserrat;
+          font-size: 1.2rem;
+        }
+  </style>
+
+</body>
+</html>
